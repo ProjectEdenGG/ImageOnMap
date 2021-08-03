@@ -60,11 +60,13 @@ public class MapInitEvent implements Listener {
     public static void init() {
         QuartzLib.registerEvents(new MapInitEvent());
 
-        for (World world : Bukkit.getWorlds()) {
-            for (ItemFrame frame : world.getEntitiesByClass(ItemFrame.class)) {
-                initMap(frame.getItem());
+        Bukkit.getScheduler().runTaskTimer(ImageOnMap.getPlugin(), () -> {
+            for (World world : Bukkit.getWorlds()) {
+                for (ItemFrame frame : world.getEntitiesByClass(ItemFrame.class)) {
+                    initMap(frame.getItem());
+                }
             }
-        }
+        }, 0, 40);
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             initMap(player.getInventory().getItemInMainHand());
