@@ -290,8 +290,9 @@ public abstract class SplatterMapManager {
                 int id = poster.getMapIdAtReverseY(i);
 
                 RunTask.later(() -> {
-                    frame.setItem(
-                            new ItemStackBuilder(Material.FILLED_MAP).nbt(ImmutableMap.of("map", id)).craftItem());
+                    final NBTItem nbtItem = new NBTItem(new ItemStack(Material.FILLED_MAP));
+                    nbtItem.setInteger("map", id);
+                    frame.setItem(nbtItem.getItem());
                 }, 5L);
 
 
