@@ -37,6 +37,7 @@
 package fr.moribus.imageonmap.ui;
 
 import com.google.common.collect.ImmutableMap;
+import de.tr7zw.nbtapi.NBTItem;
 import fr.moribus.imageonmap.image.MapInitEvent;
 import fr.moribus.imageonmap.map.ImageMap;
 import fr.moribus.imageonmap.map.MapManager;
@@ -137,20 +138,7 @@ public abstract class SplatterMapManager {
      * @return True if the attribute was detected.
      */
     public static boolean hasSplatterAttributes(ItemStack itemStack) {
-        try {
-            final NBTCompound nbt = NBT.fromItemStack(itemStack);
-            if (!nbt.containsKey("Enchantments")) {
-                return false;
-            }
-            final Object enchantments = nbt.get("Enchantments");
-            if (!(enchantments instanceof NBTList)) {
-                return false;
-            }
-            return !((NBTList) enchantments).isEmpty();
-        } catch (NMSException e) {
-            PluginLogger.error("Unable to get Splatter Map attribute on item", e);
-            return false;
-        }
+        return !itemStack.getEnchantments().isEmpty();
     }
 
     /**
@@ -240,8 +228,9 @@ public abstract class SplatterMapManager {
                 //Rotation management relative to player rotation the default position is North,
                 // when on ceiling we flipped the rotation
                 RunTask.later(() -> {
-                    frame.setItem(
-                            new ItemStackBuilder(Material.FILLED_MAP).nbt(ImmutableMap.of("map", id)).craftItem());
+                    final NBTItem nbtItem = new NBTItem(new ItemStack(Material.FILLED_MAP));
+                    nbtItem.setInteger("map", id);
+                    frame.setItem(nbtItem.getItem());
                 }, 5L);
 
                 if (i == 0) {
