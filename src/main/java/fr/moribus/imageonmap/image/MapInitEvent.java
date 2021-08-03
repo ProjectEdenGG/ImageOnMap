@@ -36,6 +36,7 @@
 
 package fr.moribus.imageonmap.image;
 
+import com.destroystokyo.paper.event.entity.EntityAddToWorldEvent;
 import fr.moribus.imageonmap.ImageOnMap;
 import fr.moribus.imageonmap.map.MapManager;
 import fr.zcraft.quartzlib.core.QuartzLib;
@@ -60,13 +61,11 @@ public class MapInitEvent implements Listener {
     public static void init() {
         QuartzLib.registerEvents(new MapInitEvent());
 
-        Bukkit.getScheduler().runTaskTimer(ImageOnMap.getPlugin(), () -> {
-            for (World world : Bukkit.getWorlds()) {
-                for (ItemFrame frame : world.getEntitiesByClass(ItemFrame.class)) {
-                    initMap(frame.getItem());
-                }
+        for (World world : Bukkit.getWorlds()) {
+            for (ItemFrame frame : world.getEntitiesByClass(ItemFrame.class)) {
+                initMap(frame.getItem());
             }
-        }, 0, 40);
+        }
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             initMap(player.getInventory().getItemInMainHand());
@@ -98,11 +97,9 @@ public class MapInitEvent implements Listener {
     }
 
     @EventHandler
-    public void onChunkLoad(ChunkLoadEvent event) {
-        for (Entity entity : event.getChunk().getEntities()) {
-            if (entity instanceof ItemFrame) {
-                initMap(((ItemFrame) entity).getItem());
-            }
+    public void onEntityAddToWorld(EntityAddToWorldEvent event) {
+        if (event.getEntity() instanceof ItemFrame) {
+            initMap(((ItemFrame) event.getEntity()).getItem());
         }
     }
 
