@@ -245,7 +245,7 @@ public class MapItemManager implements Listener {
     }
 
     private static void onItemFramePlace(ItemFrame frame, Player player, PlayerInteractEntityEvent event) {
-        final ItemStack mapItem = player.getInventory().getItemInMainHand();
+        final ItemStack mapItem = player.getInventory().getItemInMainHand().clone();
 
         if (frame.getItem().getType() != Material.AIR) {
             return;
@@ -294,7 +294,8 @@ public class MapItemManager implements Listener {
             } else {
                 frame.setRotation(Rotation.NONE);
                 RunTask.later(() -> {
-                    frame.setItem(mapItem);
+                    // TODO Figure out why this is causing the frame to disappear
+                    // frame.setItem(mapItem);
                 }, 5L);
 
             }
