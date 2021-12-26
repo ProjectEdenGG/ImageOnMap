@@ -275,31 +275,16 @@ public class MapItemManager implements Listener {
             if (frame.getFacing() != BlockFace.UP && frame.getFacing() != BlockFace.DOWN) {
                 frame.setRotation(Rotation.NONE);
             }
-            // If the item has a display name, bot not one from an anvil by the player, we remove it
-            // If it is not displayed on hover on the wall.
-            if (mapItem.hasItemMeta() && mapItem.getItemMeta().hasDisplayName()
-                    && mapItem.getItemMeta().getDisplayName().startsWith("§6")) {
-                //runtask
-                //TODO utiliser run task.later pour essayer de regler le pb d'itemframe bas gauche sans carte
-                final ItemStack frameItem = mapItem.clone();
-                final ItemMeta meta = frameItem.getItemMeta();
 
-                meta.setDisplayName(null);
-                frameItem.setItemMeta(meta);
-                RunTask.later(() -> {
-                    frame.setItem(frameItem);
-                    frame.setRotation(Rotation.NONE);
-                }, 5L);
+            final ItemStack frameItem = mapItem.clone();
+            final ItemMeta meta = frameItem.getItemMeta();
 
-            } else {
+            meta.displayName(null);
+            frameItem.setItemMeta(meta);
+            RunTask.later(() -> {
+                frame.setItem(frameItem);
                 frame.setRotation(Rotation.NONE);
-                RunTask.later(() -> {
-                    // TODO Figure out why this is causing the frame to disappear
-                    // frame.setItem(mapItem);
-                }, 5L);
-
-            }
-
+            }, 5L);
         }
 
         ItemUtils.consumeItem(player, mapItem);
