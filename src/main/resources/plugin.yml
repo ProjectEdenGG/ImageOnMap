@@ -1,6 +1,6 @@
 name: ImageOnMap
 main: fr.moribus.imageonmap.ImageOnMap
-version: "4.2.0"
+version: ${project.version}
 api-version: "1.17"
 depend:
   - NBTAPI
