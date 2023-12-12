@@ -39,7 +39,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>fr.moribus</groupId>
     <artifactId>ImageOnMap</artifactId>
-    <version>4.2.2-EDEN</version>
+    <version>4.3.0-EDEN</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -152,7 +152,7 @@
         <dependency>
             <groupId>gg.projecteden.parchment</groupId>
             <artifactId>parchment-api</artifactId>
-            <version>1.19-R0.1-SNAPSHOT</version>
+            <version>1.20.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -173,4 +173,15 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>projecteden-repo</id>
+            <url>https://sonatype.projecteden.gg/repository/maven-releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>projecteden-repo</id>
+            <url>https://sonatype.projecteden.gg/repository/maven-snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
