@@ -37,7 +37,6 @@
 package fr.moribus.imageonmap.ui;
 
 import fr.moribus.imageonmap.Permissions;
-import fr.moribus.imageonmap.PluginConfiguration;
 import fr.moribus.imageonmap.map.ImageMap;
 import fr.moribus.imageonmap.map.MapManager;
 import fr.moribus.imageonmap.map.PosterMap;
@@ -263,6 +262,7 @@ public class MapItemManager implements Listener {
         frame.setItem(new ItemStack(Material.AIR));
         if (SplatterMapManager.hasSplatterAttributes(mapItem)) {
             if (!SplatterMapManager.placeSplatterMap(frame, player, event)) {
+
                 event.setCancelled(true); //In case of an error allow to cancel map placement
                 return;
             }
@@ -286,8 +286,7 @@ public class MapItemManager implements Listener {
                 frame.setRotation(Rotation.NONE);
             }, 5L);
         }
-
-        ItemUtils.consumeItem(player, mapItem);
+        //ItemUtils.consumeItem(player, mapItem); //useless no?
     }
 
     private static void onItemFrameRemove(ItemFrame frame, Player player, EntityDamageByEntityEvent event) {
@@ -306,7 +305,6 @@ public class MapItemManager implements Listener {
                             || !SplatterMapManager.hasSplatterMap(player, poster)) {
                         poster.give(player);
                     }
-
                     return;
                 }
             }
@@ -315,7 +313,7 @@ public class MapItemManager implements Listener {
         if (!MapManager.managesMap(frame.getItem())) {
             return;
         }
-
+        SplatterMapManager.removePropertiesFromFrames(player, frame);
         frame.setItem(new ItemStackBuilder(item)
                 .title(getMapTitle(item))
                 .hideAllAttributes()
