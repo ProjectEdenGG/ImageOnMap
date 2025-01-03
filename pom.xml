@@ -68,7 +68,7 @@
                         <createDependencyReducedPom>false</createDependencyReducedPom>
                     <artifactSet>
                         <includes>
-                            <include>fr.zcraft:quartzlib</include>
+                            <include>com.github.Aurelien30000.QuartzLib:quartzlib</include>
                             <include>org.bstats:bstats-bukkit</include>
                         </includes>
                     </artifactSet>
@@ -132,8 +132,8 @@
             <url>https://sonatype.projecteden.gg/repository/maven-public/</url>
         </repository>
         <repository>
-            <id>zdevelopers-quartzlib</id>
-            <url>https://maven.zcraft.fr/QuartzLib</url>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
         </repository>
         <repository>
             <id>codemc-repo</id>
@@ -156,9 +156,10 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>fr.zcraft</groupId>
-            <artifactId>quartzlib</artifactId>
-            <version>0.1.1</version>
+            <groupId>com.github.Aurelien30000</groupId>
+            <artifactId>QuartzLib</artifactId>
+            <version>master</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.bstats</groupId>
